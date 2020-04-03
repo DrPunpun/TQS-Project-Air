@@ -10,7 +10,7 @@ stages:
 
 compile:
   stage: build
-  script: ./mvnw package
+  script: ./mvnw compile
   artifacts:
     paths:
       - target/air-0.0.1-SNAPSHOT.jar
