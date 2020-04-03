@@ -1,0 +1,20 @@
+image: maven:3.6.1-jdk-11
+
+before_script:
+  - cd air
+  - chmod +x mvnw
+
+stages:
+  - build
+  - test
+
+compile:
+  stage: build
+  script: ./mvnw package
+  artifacts:
+    paths:
+      - target/air-0.0.1-SNAPSHOT.jar
+
+hello:
+  stage: test
+  script: java -version
