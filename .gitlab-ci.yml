@@ -6,7 +6,6 @@ before_script:
 
 variables:
   SONAR_TOKEN: "$SONAR_TOKEN"
-  SONAR_HOST_URL: https://sonarcloud.io
 
 stages:
   - build
@@ -24,4 +23,4 @@ mvn-test:
 sonar:
   stage: quality
   script:
-    - mvn verify sonar:sonar
+    - mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.qualitygate.wait=true
