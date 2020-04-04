@@ -2,11 +2,7 @@ image: maven:3.6.1-jdk-11
 
 before_script:
   - cd air
-  - chmod +x mvnw
-
-variables:
-  SONAR_TOKEN: "$SONAR_TOKEN"
-  
+  - chmod +x mvnw  
 
 stages:
   - build
@@ -24,4 +20,4 @@ mvn-test:
 sonar:
   stage: quality
   script:
-    - mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.qualitygate.wait=true -Dsonar.organization=drpunpun-tqs-project1
+    - mvn verify sonar:sonar 

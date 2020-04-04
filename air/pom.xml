@@ -16,6 +16,10 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>TQS-Project-AirQualityAPI</sonar.projectKey>
+		<sonar.organization>drpunpun-tqs-project1</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>3675ce704ce121b6bfa38784b9d33360579b05f5</sonar.login>
 	</properties>
 
 	<dependencies>
