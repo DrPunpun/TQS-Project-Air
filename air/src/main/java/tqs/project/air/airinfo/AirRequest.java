@@ -1,7 +1,10 @@
 package tqs.project.air.airinfo;
 
+import java.util.Objects;
+
 public class AirRequest implements Comparable<AirRequest>{
-    private int miss, hit;
+    private int miss;
+    private int hit;
     private long requestDate;
     private String data;
 
@@ -48,5 +51,19 @@ public class AirRequest implements Comparable<AirRequest>{
     @Override
     public int compareTo(AirRequest o) {
         return (this.hit+this.miss) - (o.miss + o.hit);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AirRequest)) return false;
+        AirRequest that = (AirRequest) o;
+        return miss == that.miss &&
+                hit == that.hit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(miss, hit);
     }
 }

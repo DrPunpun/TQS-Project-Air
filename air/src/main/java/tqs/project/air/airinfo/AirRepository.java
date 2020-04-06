@@ -43,12 +43,7 @@ public class AirRepository {
     }
 
     public List<AirCoord> getMostPopular(int n){
-        TreeMap<AirCoord, AirRequest> sorted = new TreeMap<>(new Comparator<AirCoord>() {
-            @Override
-            public int compare(AirCoord o1, AirCoord o2) {
-                return -1*cache.get(o1).compareTo(cache.get(o2));
-            }
-        });
+        TreeMap<AirCoord, AirRequest> sorted = new TreeMap<>(Comparator.comparing(o -> cache.get(o)).reversed());
         sorted.putAll(this.cache);
 
         return sorted.keySet().stream().limit(n).collect(Collectors.toList());

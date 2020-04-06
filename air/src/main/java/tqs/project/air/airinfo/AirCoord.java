@@ -3,7 +3,8 @@ package tqs.project.air.airinfo;
 import java.util.Objects;
 
 public class AirCoord {
-    private double lon, lat;
+    private double lon;
+    private double lat;
 
     public AirCoord(double lon, double lat) {
         this.lon = lon;
