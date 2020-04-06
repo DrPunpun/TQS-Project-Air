@@ -6,4 +6,8 @@ public class Utils {
     public static String getKey(){
         return key;
     }
+
+    private Utils() {
+        throw new IllegalStateException("Utility class");
+    }
 }
