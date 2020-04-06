@@ -15,12 +15,12 @@ public class AirCoordTest {
 
     @Test
     public void testGetLon(){
-        assertEquals(airCoord.getLon(), 0);
+        assertEquals(0, airCoord.getLon());
     }
 
     @Test
     public void testGetLat(){
-        assertEquals(airCoord.getLat(), 0);
+        assertEquals(0, airCoord.getLat());
     }
 
     @Test

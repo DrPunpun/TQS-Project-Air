@@ -23,29 +23,29 @@ public class AirRequestUnitTest {
 
     @Test
     public void getDataTest(){
-        assertEquals(this.airRequest.getData(), "data");
+        assertEquals("data", this.airRequest.getData());
     }
 
     @Test
     public void getHitTest(){
-        assertEquals(airRequest.getHit(), 0);
+        assertEquals(0, airRequest.getHit());
     }
 
     @Test
     public void getMissTest(){
-        assertEquals(airRequest.getMiss(), 1);
+        assertEquals(1, airRequest.getMiss());
     }
 
     @Test
     public void missTest(){
         this.airRequest.miss();
-        assertEquals(airRequest.getMiss(), 2);
+        assertEquals(2, airRequest.getMiss());
     }
 
     @Test
     public void hitTest(){
         this.airRequest.hit();
-        assertEquals(airRequest.getHit(), 1);
+        assertEquals(1, airRequest.getHit());
     }
 
     @Test
@@ -57,15 +57,15 @@ public class AirRequestUnitTest {
 
     @Test
     public void getAndSetDataTest(){
-        assertEquals(this.airRequest.getData(), "data");
+        assertEquals("data", this.airRequest.getData());
         this.airRequest.setData("data2");
-        assertEquals(this.airRequest.getData(), "data2");
+        assertEquals("data2", this.airRequest.getData());
     }
 
     @Test
     public void getAndSetTimestampTest(){
         long currentTimestamp = System.currentTimeMillis();
         this.airRequest.setRequestDate(currentTimestamp);
-        assertEquals(this.airRequest.getRequestDate(), currentTimestamp);
+        assertEquals(currentTimestamp, this.airRequest.getRequestDate());
     }
 }

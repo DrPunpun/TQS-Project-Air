@@ -22,18 +22,18 @@ public class AirRepositoryUnitTest {
     public void testGetData() throws InterruptedException {
         this.airRepository.getData(0, 0);
 
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 1);
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getHit(), 0);
+        assertEquals(1, this.airRepository.cache.get(new AirCoord(0,0)).getMiss());
+        assertEquals(0, this.airRepository.cache.get(new AirCoord(0,0)).getHit());
 
         this.airRepository.getData(0, 0);
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 1);
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getHit(), 1);
+        assertEquals(1, this.airRepository.cache.get(new AirCoord(0,0)).getMiss());
+        assertEquals(1, this.airRepository.cache.get(new AirCoord(0,0)).getHit());
 
         TimeUnit.MILLISECONDS.sleep(600);
 
         this.airRepository.getData(0, 0);
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 2);
-        assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getHit(), 1);
+        assertEquals(2, this.airRepository.cache.get(new AirCoord(0,0)).getMiss());
+        assertEquals(1, this.airRepository.cache.get(new AirCoord(0,0)).getHit());
 
     }
 
