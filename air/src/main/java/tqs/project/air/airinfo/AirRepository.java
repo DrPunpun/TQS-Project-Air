@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
 public class AirRepository {
     protected HashMap<AirCoord, AirRequest> cache;
     private int ttl;
-    private String key;
+
+    public AirRepository(int ttl){
+        this.ttl = ttl;
+        this.cache = new HashMap<>();
+    }
 
     public AirRepository() {
-        this.ttl = 500;
-        this.cache = new HashMap<>();
-        this.key = Utils.getKey();
+        this(500);
     }
 
     public String getData(double lon, double lat){
