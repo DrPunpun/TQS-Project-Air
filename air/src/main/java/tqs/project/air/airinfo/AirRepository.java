@@ -2,21 +2,40 @@ package tqs.project.air.airinfo;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Repository
 public class AirRepository {
     protected HashMap<AirCoord, AirRequest> cache;
     private int ttl;
+    private String key;
 
     public AirRepository() {
         this.ttl = 500;
         this.cache = new HashMap<>();
+        this.key = Utils.getKey();
     }
 
     public String getData(double lon, double lat){
-        return "";
+        AirCoord air = new AirCoord(lon, lat);
+        AirRequest airRequest;
+        if (cache.containsKey(air)){
+            airRequest = cache.get(air);
+            if (System.currentTimeMillis() > airRequest.getRequestDate() + this.ttl){
+                airRequest.miss();
+            } else {
+                airRequest.hit();
+            }
+        } else {
+            airRequest = new AirRequest("data");
+            this.cache.put(air, airRequest);
+        }
+                
+        return airRequest.getData();
     }
 
     public List<AirCoord> getMostPopular(){
@@ -24,6 +43,14 @@ public class AirRepository {
     }
 
     public List<AirCoord> getMostPopular(int n){
-        return null;
+        TreeMap<AirCoord, AirRequest> sorted = new TreeMap<>(new Comparator<AirCoord>() {
+            @Override
+            public int compare(AirCoord o1, AirCoord o2) {
+                return -1*cache.get(o1).compareTo(cache.get(o2));
+            }
+        });
+        sorted.putAll(this.cache);
+
+        return sorted.keySet().stream().limit(n).collect(Collectors.toList());
     }
 }

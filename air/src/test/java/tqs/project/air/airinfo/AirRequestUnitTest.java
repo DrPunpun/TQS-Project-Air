@@ -8,50 +8,64 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AirRequestUnitTest {
     private AirRequest airRequest;
-    private AirCoord air;
+    private static AirCoord air;
 
     @BeforeAll
-    private void generalSetup(){
-        this.air = new AirCoord(0,0);
+    static public void generalSetup(){
+        air = new AirCoord(0,0);
         System.out.println("Setup complete");
     }
 
     @BeforeEach
-    private void setup(){
+    public void setup(){
         this.airRequest = new AirRequest("data");
     }
 
     @Test
-    private void getDataTest(){
+    public void getDataTest(){
         assertEquals(this.airRequest.getData(), "data");
     }
 
     @Test
-    private void getHitTest(){
+    public void getHitTest(){
         assertEquals(airRequest.getHit(), 0);
     }
 
     @Test
-    private void getMissTest(){
+    public void getMissTest(){
         assertEquals(airRequest.getMiss(), 1);
     }
 
     @Test
-    private void missTest(){
+    public void missTest(){
         this.airRequest.miss();
         assertEquals(airRequest.getMiss(), 2);
     }
 
     @Test
-    private void hitTest(){
+    public void hitTest(){
         this.airRequest.hit();
         assertEquals(airRequest.getHit(), 1);
     }
 
     @Test
-    private void comparesTest(){
+    public void comparesTest(){
         this.airRequest.hit();
         AirRequest airRequest2 = new AirRequest("data");
         assertTrue(airRequest.compareTo(airRequest2) > 0);
+    }
+
+    @Test
+    public void getAndSetDataTest(){
+        assertEquals(this.airRequest.getData(), "data");
+        this.airRequest.setData("data2");
+        assertEquals(this.airRequest.getData(), "data2");
+    }
+
+    @Test
+    public void getAndSetTimestampTest(){
+        long currentTimestamp = System.currentTimeMillis();
+        this.airRequest.setRequestDate(currentTimestamp);
+        assertEquals(this.airRequest.getRequestDate(), currentTimestamp);
     }
 }

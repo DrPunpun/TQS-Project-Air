@@ -17,6 +17,10 @@ public class AirRequest implements Comparable<AirRequest>{
         return this.data;
     }
 
+    public void setData(String data) {
+        this.data = data;
+    }
+
     public long getRequestDate(){
         return this.requestDate;
     }
@@ -34,13 +38,15 @@ public class AirRequest implements Comparable<AirRequest>{
     }
 
     public void hit(){
+        this.hit++;
     }
 
     public void miss() {
+        this.miss++;
     }
 
     @Override
     public int compareTo(AirRequest o) {
-        return 0;
+        return (this.hit+this.miss) - (o.miss + o.hit);
     }
 }

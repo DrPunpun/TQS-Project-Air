@@ -21,6 +21,7 @@ public class AirRepositoryUnitTest {
     @Test
     public void testGetData() throws InterruptedException {
         this.airRepository.getData(0, 0);
+
         assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 1);
         assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getHit(), 0);
 
@@ -28,7 +29,7 @@ public class AirRepositoryUnitTest {
         assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 1);
         assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getHit(), 1);
 
-        TimeUnit.MILLISECONDS.sleep(500);
+        TimeUnit.MILLISECONDS.sleep(600);
 
         this.airRepository.getData(0, 0);
         assertEquals(this.airRepository.cache.get(new AirCoord(0,0)).getMiss(), 2);
@@ -49,8 +50,7 @@ public class AirRepositoryUnitTest {
         for (int i = 0; i < 3; i++) airCoordsList.add(new AirCoord(i,i));
 
         List<AirCoord> result = this.airRepository.getMostPopular();
-        assertTrue(result.equals(airCoordsList));
-
+        assertEquals(result, airCoordsList);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class AirRepositoryUnitTest {
         this.airRepository.getData(2, 2);
 
         List<AirCoord> result = this.airRepository.getMostPopular(1);
-        assertTrue(result.equals(new ArrayList<>(Arrays.asList(new AirCoord(0, 0)))));
+        assertEquals(result, new ArrayList<>(Arrays.asList(new AirCoord(0, 0))));
 
     }
 

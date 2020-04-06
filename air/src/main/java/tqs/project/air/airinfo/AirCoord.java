@@ -27,4 +27,8 @@ public class AirCoord {
                 Double.compare(airCoord.lat, lat) == 0;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lon, lat);
+    }
 }

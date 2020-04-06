@@ -9,22 +9,22 @@ public class AirCoordTest {
     private AirCoord airCoord;
 
     @BeforeEach
-    private void setupAirCoord(){
+    public void setupAirCoord(){
         airCoord = new AirCoord(0, 0);
     }
 
     @Test
-    private void testGetLon(){
+    public void testGetLon(){
         assertEquals(airCoord.getLon(), 0);
     }
 
     @Test
-    private void testGetLat(){
+    public void testGetLat(){
         assertEquals(airCoord.getLat(), 0);
     }
 
     @Test
-    private void testEquals(){
+    public void testEquals(){
         assertTrue(airCoord.equals(new AirCoord(0, 0)));
     }
 }
