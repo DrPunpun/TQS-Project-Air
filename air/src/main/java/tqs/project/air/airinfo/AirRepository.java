@@ -2,52 +2,48 @@ package tqs.project.air.airinfo;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 @Repository
 public class AirRepository {
     protected HashMap<AirCoord, AirRequest> cache;
     private int ttl;
+    private int miss;
+    private int hit;
 
     public AirRepository(int ttl){
         this.ttl = ttl;
         this.cache = new HashMap<>();
+        this.miss = 0;
+        this.hit = 0;
     }
 
     public AirRepository() {
         this(500);
     }
 
-    public String getData(double lon, double lat){
+    public AirRequest getData(double lat, double lon){
         AirCoord air = new AirCoord(lon, lat);
-        AirRequest airRequest;
-        if (cache.containsKey(air)){
-            airRequest = cache.get(air);
-            if (System.currentTimeMillis() > airRequest.getRequestDate() + this.ttl){
-                airRequest.miss();
-            } else {
-                airRequest.hit();
-            }
-        } else {
-            airRequest = new AirRequest("data");
-            this.cache.put(air, airRequest);
+
+        if (cache.containsKey(air) && System.currentTimeMillis() > cache.get(air).getRequestDate() + this.ttl){
+            this.hit++;
+            return cache.get(air);
         }
-                
-        return airRequest.getData();
+        return null;
     }
 
-    public List<AirCoord> getMostPopular(){
-        return this.getMostPopular(this.cache.size());
+    public int getMiss() {
+        return miss;
     }
 
-    public List<AirCoord> getMostPopular(int n){
-        TreeMap<AirCoord, AirRequest> sorted = new TreeMap<>(Comparator.comparing(o -> cache.get(o)).reversed());
-        sorted.putAll(this.cache);
+    public int getHit() {
+        return hit;
+    }
 
-        return sorted.keySet().stream().limit(n).collect(Collectors.toList());
+    public AirRequest putData(double lon, double lat, String data){
+        this.miss++;
+        AirRequest airRequest = new AirRequest(data);
+        this.cache.put(new AirCoord(lon, lat), airRequest);
+        return airRequest;
     }
 }
