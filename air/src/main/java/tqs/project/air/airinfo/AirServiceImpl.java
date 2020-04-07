@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -49,9 +46,6 @@ public class AirServiceImpl implements AirService {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // print status code
-        System.out.println(response.statusCode());
-
         // print response body
         return response.body();
     }
@@ -66,7 +60,6 @@ public class AirServiceImpl implements AirService {
 
                 this.airRepository.putData(lat, lat, getResult);
             } catch (Exception e){
-                System.out.println("Mission failed");
                 return null;
             }
         }

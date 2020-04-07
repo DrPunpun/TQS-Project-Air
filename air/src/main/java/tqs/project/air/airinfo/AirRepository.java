@@ -40,7 +40,7 @@ public class AirRepository {
         return hit;
     }
 
-    public AirRequest putData(double lon, double lat, String data){
+    public AirRequest putData(double lat, double lon, String data){
         this.miss++;
         AirRequest airRequest = new AirRequest(data);
         this.cache.put(new AirCoord(lon, lat), airRequest);
