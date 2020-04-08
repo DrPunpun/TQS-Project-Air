@@ -16,13 +16,13 @@ import java.util.List;
 public class AirServiceImpl implements AirService {
 
     @Value("${breezometer.api}")
-    private String url;
+    private static String url;
 
     @Value("${breezometer.key}")
-    private String key;
+    private static String key;
 
     @Value("${breezometer.features}")
-    private String features;
+    private static String features;
 
     @Autowired
     private AirRepository airRepository;
@@ -36,11 +36,11 @@ public class AirServiceImpl implements AirService {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(
-                        "https://api.breezometer.com/air-quality/v2/current-conditions?"+
+                        key+
                         "lat="+lat +
                         "&lon="+lon +
-                        "&key="+"f8e686b5d7e145b1b64752921eb03f25"+
-                        "&features=" + "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,pollutants_concentrations,pollutants_aqi_information"))
+                        "&key="+key+
+                        "&features=" + features))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot")
                 .build();
 

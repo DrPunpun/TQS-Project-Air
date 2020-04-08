@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,7 +28,12 @@ public class AirServiceImplTest {
 
     @BeforeEach
     public void setupMocks(){
+
         MockitoAnnotations.initMocks(this);
+        ReflectionTestUtils.setField( airServiceImpl, "key", "f8e686b5d7e145b1b64752921eb03f25");
+        ReflectionTestUtils.setField( airServiceImpl, "features", "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,pollutants_concentrations,pollutants_aqi_information");
+        ReflectionTestUtils.setField( airServiceImpl, "url", "https://api.breezometer.com/air-quality/v2/current-conditions?");
+
     }
 
     @Test
