@@ -10,7 +10,7 @@ public class AirRestController {
     private AirService airService;
 
     @GetMapping("/breeze")
-    private AirRequest getAirRequest(@RequestParam float lon, @RequestParam float lat, @RequestParam String features){
+    public AirRequest getAirRequest(@RequestParam float lon, @RequestParam float lat, @RequestParam String features){
         return airService.getAirQualityByLocal(lon, lat, features.split(","));
     }
 }
