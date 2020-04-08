@@ -37,18 +37,6 @@ public class AirServiceImplTest {
     }
 
     @Test
-    public void sendGETTest(){
-        String result = "";
-
-        try{
-            result = airServiceImpl.sendGET(""+48.857456, ""+2.354611);
-        } catch (Exception e){
-            fail();
-        }
-        assertEquals(data, result);
-    }
-
-    @Test
     public void getAirQualityByLocalNFeatures_NotInCache_Test(){
         when(airRepository.getData(48.857456, 2.354611)).thenReturn(null);
 
@@ -57,7 +45,7 @@ public class AirServiceImplTest {
         features[1] = "so2";
         features[2] = "pm25";
 
-        AirRequest airResult = airServiceImpl.getAirQualityByLocal(48.857456f, 2.354611f, features);
+        AirRequest airResult = airServiceImpl.getAirQualityByLocal(48.857456, 2.354611, features);
 
         AirRequest airExpected = new AirRequest(data);
         airExpected.excludeAirMetric("no2");
