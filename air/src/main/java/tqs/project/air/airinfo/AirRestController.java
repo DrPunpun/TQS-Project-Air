@@ -11,4 +11,6 @@ public class AirRestController {
     @Autowired
     private AirService airService;
 
+    @GetMapping("/api/currentbreeze")
+
 }
