@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -16,13 +17,13 @@ import java.util.List;
 public class AirServiceImpl implements AirService {
 
     @Value("${breezometer.api}")
-    private static String url;
+    private String url;
 
     @Value("${breezometer.key}")
-    private static String key;
+    private String key;
 
     @Value("${breezometer.features}")
-    private static String features;
+    private String features;
 
     @Autowired
     private AirRepository airRepository;
@@ -35,29 +36,28 @@ public class AirServiceImpl implements AirService {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(
-                        url+
+                        this.url+
                         "lat="+lat +
                         "&lon="+lon +
-                        "&key="+key+
-                        "&features=" + features))
+                        "&key="+this.key+
+                        "&features=" + this.features))
                 .setHeader("User-Agent", "Java 11 HttpClient Bot")
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // print response body
         return response.body();
     }
 
     @Override
-    public AirRequest getAirQualityByLocal(float lat, float lon, String[] features) {
-        AirRequest airRequest = airRepository.getData(lon, lat);
+    public AirRequest getAirQualityByLocal(double lat, double lon, String[] features) {
+        AirRequest airRequest = airRepository.getData(lat, lon);
         if (airRequest == null){
             try {
                 String getResult = sendGET("" + lat, "" + lon);
                 airRequest = new AirRequest(getResult);
 
-                this.airRepository.putData(lat, lat, getResult);
+                this.airRepository.putData(lat, lon, getResult);
             } catch (Exception e){
                 return null;
             }
@@ -73,6 +73,26 @@ public class AirServiceImpl implements AirService {
         }
 
         return airRequest;
+    }
+
+    @Override
+    public int getMisses() {
+        return airRepository.getMiss();
+    }
+
+    @Override
+    public int getHits() {
+        return airRepository.getHit();
+    }
+
+    @Override
+    public int getRequests() {
+        return airRepository.getHit() + airRepository.getMiss();
+    }
+
+    @Override
+    public void clearCache() {
+        airRepository.clear();
     }
 
 }
