@@ -24,10 +24,7 @@ public class AirRepository {
 
     public AirRequest getData(double lat, double lon){
         AirCoord air = new AirCoord(lat, lon);
-        if (cache.containsKey(air)){
-            System.out.println(System.currentTimeMillis());
-            System.out.println(cache.get(air).getRequestDate() + this.ttl);
-        }
+
         if (cache.containsKey(air) && System.currentTimeMillis() < cache.get(air).getRequestDate() + this.ttl){
             this.hit++;
             return cache.get(air);
