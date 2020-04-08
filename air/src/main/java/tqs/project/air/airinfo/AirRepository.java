@@ -19,13 +19,13 @@ public class AirRepository {
     }
 
     public AirRepository() {
-        this(500);
+        this(60000);
     }
 
     public AirRequest getData(double lat, double lon){
-        AirCoord air = new AirCoord(lon, lat);
+        AirCoord air = new AirCoord(lat, lon);
 
-        if (cache.containsKey(air) && System.currentTimeMillis() > cache.get(air).getRequestDate() + this.ttl){
+        if (cache.containsKey(air) && System.currentTimeMillis() < cache.get(air).getRequestDate() + this.ttl){
             this.hit++;
             return cache.get(air);
         }
@@ -43,7 +43,7 @@ public class AirRepository {
     public AirRequest putData(double lat, double lon, String data){
         this.miss++;
         AirRequest airRequest = new AirRequest(data);
-        this.cache.put(new AirCoord(lon, lat), airRequest);
+        this.cache.put(new AirCoord(lat, lon), airRequest);
         return airRequest;
     }
 }

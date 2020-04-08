@@ -32,11 +32,10 @@ public class AirServiceImpl implements AirService {
             .build();
 
     protected String sendGET(String lat, String lon) throws IOException, InterruptedException {
-
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(
-                        key+
+                        url+
                         "lat="+lat +
                         "&lon="+lon +
                         "&key="+key+

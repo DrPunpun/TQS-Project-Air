@@ -6,7 +6,7 @@ public class AirCoord {
     private double lon;
     private double lat;
 
-    public AirCoord(double lon, double lat) {
+    public AirCoord(double lat, double lon) {
         this.lon = lon;
         this.lat = lat;
     }
