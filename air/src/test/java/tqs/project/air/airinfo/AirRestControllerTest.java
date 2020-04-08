@@ -47,4 +47,24 @@ public class AirRestControllerTest {
         verify(airService, times(1)).getAirQualityByLocal(anyDouble(), anyDouble(), any(String[].class));
         reset(airService);
     }
+
+    @Test
+    public void cacheReturnsRightNumbers() throws Exception {
+        when(airService.getHits()).thenReturn(2);
+        when(airService.getMisses()).thenReturn(4);
+        when(airService.getRequests()).thenReturn(6);
+
+        mockMvc.perform(get("/api/cache")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(3)))
+                .andExpect(jsonPath("$.Requests", is("6")))
+                .andExpect(jsonPath("$.Misses", is("4")))
+                .andExpect(jsonPath("$.Hits", is("2")))
+        ;
+        verify(airService, times(1)).getHits();
+        verify(airService, times(1)).getRequests();
+        verify(airService, times(1)).getMisses();
+        reset(airService);
+    }
 }

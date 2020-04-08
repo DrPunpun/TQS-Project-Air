@@ -11,9 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import tqs.project.air.AirApplication;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = AirApplication.class)
@@ -79,5 +82,50 @@ public class AirControllerIT {
                 andExpect(status().isOk());
         assertEquals(1, airService.getMisses());
         assertEquals(1, airService.getHits());
+    }
+
+    @Test
+    public void whenSearchingAndClearingCache_MissesReset() throws Exception {
+        double lat = 48.857456;
+        double lon = 2.354611;
+
+        mockMvc.perform(get("/api/breeze")
+                .param("lat", ""+lat)
+                .param("lon", ""+lon)
+                .param("features", "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,pollutants_concentrations,pollutants_aqi_information\n"));
+
+        assertEquals(1, airService.getMisses());
+        assertEquals(0, airService.getHits());
+
+        mockMvc.perform(get("/api/clear")).andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/breeze")
+                .param("lat", ""+lat)
+                .param("lon", ""+lon)
+                .param("features", "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,pollutants_concentrations,pollutants_aqi_information\n"));
+
+        assertEquals(1, airService.getMisses());
+        assertEquals(0, airService.getHits());
+    }
+
+    @Test
+    public void whenSearching_GetCacheChanges() throws Exception {
+        double lat = 48.857456;
+        double lon = 2.354611;
+
+        mockMvc.perform(get("/api/breeze")
+                        .param("lat", ""+lat)
+                        .param("lon", ""+lon)
+                        .param("features", "breezometer_aqi,local_aqi,health_recommendations,sources_and_effects,pollutants_concentrations,pollutants_aqi_information\n"));
+
+        mockMvc.perform(get("/api/cache")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(3)))
+                .andExpect(jsonPath("$.Requests", is("1")))
+                .andExpect(jsonPath("$.Misses", is("1")))
+                .andExpect(jsonPath("$.Hits", is("0")))
+        ;
+        assertEquals(0, airService.getHits());
     }
 }
