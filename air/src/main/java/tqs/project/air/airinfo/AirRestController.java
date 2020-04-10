@@ -16,8 +16,9 @@ public class AirRestController {
 
     @GetMapping("/breeze")
     public ResponseEntity<AirRequest> getAirRequest(@RequestParam double lon, @RequestParam double lat, @RequestParam String features){
-        return new ResponseEntity<>(airService.getAirQualityByLocal(lat, lon, features.split(",")), HttpStatus.OK);
+        return ResponseEntity.ok(airService.getAirQualityByLocal(lat, lon, features.split(",")));
     }
+
     @GetMapping("/cache")
     public ResponseEntity<HashMap<String, String>> getCache(){
         HashMap<String, String> cache = new HashMap<>();

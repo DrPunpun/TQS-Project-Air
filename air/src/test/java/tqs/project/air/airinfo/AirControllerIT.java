@@ -53,7 +53,7 @@ public class AirControllerIT {
         MvcResult result = mockMvc.perform(get("/api/breeze")
                 .param("lat", ""+lat)
                 .param("lon", ""+lon)
-                .param("features", "co,so2,no2,o3,pm10,pm25")
+                .param("features", "co,so2,no2,o3")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn()
