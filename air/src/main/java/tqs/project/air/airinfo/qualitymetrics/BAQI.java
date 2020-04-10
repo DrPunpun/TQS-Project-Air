@@ -24,6 +24,15 @@ public class BAQI {
     }
 
     @Override
+    public String toString() {
+        return "BAQI{" +
+                "aqi=" + aqi +
+                ", color='" + color + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(aqi, color, category);
     }

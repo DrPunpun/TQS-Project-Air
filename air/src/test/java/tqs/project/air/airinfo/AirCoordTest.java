@@ -14,17 +14,22 @@ public class AirCoordTest {
     }
 
     @Test
-    public void testGetLon(){
+    public void getLonTest(){
         assertEquals(0, airCoord.getLon());
     }
 
     @Test
-    public void testGetLat(){
+    public void getLatTest(){
         assertEquals(0, airCoord.getLat());
     }
 
     @Test
-    public void testEquals(){
-        assertTrue(airCoord.equals(new AirCoord(0, 0)));
+    public void equalsTest(){
+        assertNotEquals("test", airCoord);
+        assertEquals(new AirCoord(0, 0), airCoord);
+    }
+
+    @Test void hashTest(){
+        assertEquals(new AirCoord(0,0).hashCode(), airCoord.hashCode());
     }
 }

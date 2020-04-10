@@ -91,6 +91,15 @@ public class AirRequest {
 
     }
 
+    @Override
+    public String toString() {
+        return "AirRequest{" +
+                "requestDate=" + requestDate +
+                ", baqi=" + baqi +
+                ", listOfPollutants=" + listOfPollutants +
+                '}';
+    }
+
     public long getRequestDate(){
         return this.requestDate;
     }

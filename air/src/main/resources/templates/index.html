@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Air REST API</title>
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Event Registration Form</h2>
+                </div>
+                <div class="card-body">
+                    <div class="form-row m-b-55">
+                        <div class="name">Coordinates</div>
+                        <div class="value">
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text" id="lat" name="lat" value="48.857456">
+                                        <label class="label--desc">Latitude</label>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text" id="lon" name="lon" value="2.354611">
+                                        <label class="label--desc">Longitude</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row p-t-20">
+                        <label class="label label--block">Which pollutant(s) do you want to see?</label>
+                        <div class="p-t-15">
+                            <label class="checkbox-container m-r-15">CO
+                                <input type="checkbox" value="co" checked="checked" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container m-r-15">NO2
+                                <input type="checkbox" value="no2" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container m-r-15">O3
+                                <input type="checkbox" value="o3" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container m-r-15">PM10
+                                <input type="checkbox" value="pm10" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container m-r-15">PM25
+                                <input type="checkbox" value="pm25" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">SO
+                                <input type="checkbox" value="so" name="feature">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn--radius-2 btn--red" id="data-button">Check Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
