@@ -104,8 +104,10 @@
 					<includes>
 						<include>**/*IT.java</include>
 						<include>**/*Test.java</include>
+						<skipTests>true</skipTests>
 					</includes>
 				</configuration>
+
 			</plugin>
 
 			<plugin>

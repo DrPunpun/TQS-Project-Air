@@ -32,6 +32,26 @@ $(document).ready(function(){
                     "</div>" +
                     "<p id='baqi-category'>"+data.baqi.category+"<p>"
                 )
+                if (features != ""){
+                    $("#pollutants").append("<div id='pollutants-list'></div>");
+                    $.each( data.listOfPollutants, function( key, value ) {
+                        console.log( key + ": " + value.name );
+                        $("#pollutants-list").append(
+                            "<div class='col-2'>" +
+                                "<h5>" + value.name + "</h5>"+
+                                "<div class='c100 p"+value.baqi.aqi +"'>" +
+                                    "<span>"+value.baqi.aqi + "</span>" +
+                                    "<div class=\"slice\">" +
+                                        "<div class=\"bar\"style='border-color: "+value.baqi.color+"'></div>" +
+                                        "<div class=\"fill\" style='border-color: "+value.baqi.color+"'></div>" +
+                                    " </div>"+
+                                "</div>" +
+                                "<p>"+value.baqi.category+"<p>"+
+                                "<p> Concentreation of " + value.concentration + value.concentrationunits + "</p>" +
+                            "</div>"
+                        )
+                    });
+                }
             }
         });
     });
@@ -40,6 +60,7 @@ $(document).ready(function(){
         $("#get-header").html("<h4 class=\"modal-title\" id=\"get-header\">Results for </h4>");
         $("#baqi-results-graph").remove();
         $("#baqi-category").remove();
+        $("#pollutants-list").remove();
         $("#get-result").css("display", "none");
         $("#ask-params").css("display", "block");
     });
