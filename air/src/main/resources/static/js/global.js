@@ -79,12 +79,12 @@ $(document).ready(function(){
                  $("#cache-results").append(
                      "<div id='cache-stats'>" +
                          "<h3>Number of Requests</h3>" +
-                         "<h3>" + data.Requests + "</h3>" +
+                         "<h3 id='no-reqs'>" + data.Requests + "</h3>" +
                          "<div>" +
                              "<h4> Misses </h4>"+
-                             "<h4>" + data.Misses + "</h4>"+
+                             "<h4 id='no-miss'>" + data.Misses + "</h4>"+
                              "<h4> Hits </h4>" +
-                             "<h4>" + data.Hits + "</h4>" +
+                             "<h4 id='no-hits'>" + data.Hits + "</h4>" +
                          "</div>" +
                      "</div>"
                  )
