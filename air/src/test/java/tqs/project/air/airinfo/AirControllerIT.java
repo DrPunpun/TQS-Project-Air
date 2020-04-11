@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import tqs.project.air.AirApplication;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -50,16 +50,20 @@ public class AirControllerIT {
         double lat = 48.857456;
         double lon = 2.354611;
 
-        MvcResult result = mockMvc.perform(get("/api/breeze")
+        mockMvc.perform(get("/api/breeze")
                 .param("lat", ""+lat)
                 .param("lon", ""+lon)
                 .param("features", "co,so2,no2,o3")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andReturn()
+                .andExpect(jsonPath("$.*", hasSize(3)))
+                .andExpect(jsonPath("$.listOfPollutants", hasKey("co")))
+                .andExpect(jsonPath("$.listOfPollutants", hasKey("so2")))
+                .andExpect(jsonPath("$.listOfPollutants", hasKey("o3")))
+                .andExpect(jsonPath("$.listOfPollutants", hasKey("no2")))
+                .andExpect(jsonPath("$.listOfPollutants", not(hasKey("pm10"))))
+                .andExpect(jsonPath("$.listOfPollutants", not(hasKey("pm25"))))
         ;
-
-        System.out.println(result.getResponse().getContentAsString());
     }
 
     @Test

@@ -7,14 +7,14 @@ public abstract class Pollutants {
     private String name;
     private String shorthand;
     private double concentration;
-    private String concentrationUnits;
+    private String concentrationunits;
 
     public Pollutants(BAQI baqi, String name, String shorthand, double concentration, String concentrationUnits) {
         this.baqi = baqi;
         this.name = name;
         this.shorthand = shorthand;
         this.concentration = concentration;
-        this.concentrationUnits = concentrationUnits;
+        this.concentrationunits = concentrationUnits;
     }
 
     public BAQI getBaqi() {
@@ -33,8 +33,8 @@ public abstract class Pollutants {
         return concentration;
     }
 
-    public String getConcentrationUnits() {
-        return concentrationUnits;
+    public String getConcentrationunits() {
+        return concentrationunits;
     }
 
     @Override

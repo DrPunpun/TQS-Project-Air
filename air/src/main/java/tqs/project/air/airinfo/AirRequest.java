@@ -108,6 +108,10 @@ public class AirRequest {
         this.requestDate = requestDate;
     }
 
+    public Map<String, Pollutants> getListOfPollutants() {
+        return listOfPollutants;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

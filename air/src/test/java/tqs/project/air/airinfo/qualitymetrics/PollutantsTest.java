@@ -21,7 +21,7 @@ class PollutantsTest {
     void gettersTest() {
         assertEquals(new BAQI(0, "a", "b"), co.getBaqi());
         assertEquals(22.2, co.getConcentration());
-        assertEquals("ppb", co.getConcentrationUnits());
+        assertEquals("ppb", co.getConcentrationunits());
         assertEquals("Carbon Monoxide", co.getName());
         assertEquals("CO", co.getShorthand());
     }
