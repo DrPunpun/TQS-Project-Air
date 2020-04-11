@@ -42,7 +42,54 @@ $(document).ready(function(){
         $("#baqi-category").remove();
         $("#get-result").css("display", "none");
         $("#ask-params").css("display", "block");
-    })
+    });
+
+    $("#cache-button").click(function(){
+         var url = "http://localhost:8080/api/cache";
+         $.ajax({
+             type: "GET",
+             url: url,
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: function (data) {
+                 console.log(data)
+                 $("#ask-params").css("display", "none");
+                 $("#get-cache").css("display", "block");
+                 $("#cache-results").append(
+                     "<div id='cache-stats'>" +
+                         "<h3>Number of Requests</h3>" +
+                         "<h3>" + data.Requests + "</h3>" +
+                         "<div>" +
+                             "<h4> Misses </h4>"+
+                             "<h4>" + data.Misses + "</h4>"+
+                             "<h4> Hits </h4>" +
+                             "<h4>" + data.Hits + "</h4>" +
+                         "</div>" +
+                     "</div>"
+                 )
+             }
+         });
+    });
+
+    $("#back-cache-button").click(function(){
+        $("#cache-stats").remove();
+        $("#get-cache").css("display", "none");
+        $("#ask-params").css("display", "block");
+    });
+
+    $("#clear-cache-button").click(function(){
+        $("#cache-stats").remove();
+        $("#get-cache").css("display", "none");
+        $("#ask-params").css("display", "block");
+        var url = "http://localhost:8080/api/clear";
+        $.ajax({
+             type: "GET",
+             url: url,
+             contentType: "application/json; charset=utf-8",
+             dataType: "json"
+        })
+
+    });
 
 
 });
